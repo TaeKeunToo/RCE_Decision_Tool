@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCE Treatment Algorithm</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+    }
+    .flowchart {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .step {
+        display: none;
+        margin: 10px;
+        padding: 20px;
+        border: 2px solid #007BFF;
+        border-radius: 10px;
+        background-color: #f0f8ff;
+        text-align: center;
+    }
+    .step.active {
+        display: block;
+    }
+    .button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<script>
+function showStep(stepId) {
+    document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+    document.getElementById(stepId).classList.add('active');
+}
+</script>
+</head>
+<body>
+
+<div class="flowchart">
+    <div id="start" class="step active">
+        <h2>Start</h2>
+        <p>Is the patient in the Acute or Chronic phase?</p>
+        <button class="button" onclick="showStep('acute')">Acute</button>
+        <button class="button" onclick="showStep('chronic')">Chronic</button>
+    </div>
+
+    <div id="acute" class="step">
+        <h2>Acute Phase</h2>
+        <p>Recommended Treatment: Artificial tears, NSAIDs, antibiotics.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('punctal_occlusion')">Treatment Failed</button>
+    </div>
+
+    <div id="chronic" class="step">
+        <h2>Chronic Phase</h2>
+        <p>Recommended Treatment: Lacri-Lube, Muro 128, NSAIDs, antibiotics.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('punctal_occlusion')">Treatment Failed</button>
+    </div>
+
+    <div id="punctal_occlusion" class="step">
+        <h2>Punctal Occlusion</h2>
+        <p>Is the patient experiencing moderate dry eye or severe tear film insufficiency?</p>
+        <button class="button" onclick="showStep('moderate_dry_eye')">Moderate Dry Eye</button>
+        <button class="button" onclick="showStep('severe_tear_film')">Severe Tear Film Insufficiency</button>
+    </div>
+
+    <div id="moderate_dry_eye" class="step">
+        <h2>Moderate Dry Eye</h2>
+        <p>Recommended Treatment: Dissolvable collagen punctal plugs.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('combination_therapy')">Treatment Failed</button>
+    </div>
+
+    <div id="severe_tear_film" class="step">
+        <h2>Severe Tear Film Insufficiency</h2>
+        <p>Recommended Treatment: Long-term silicone punctal plugs.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('combination_therapy')">Treatment Failed</button>
+    </div>
+
+    <div id="combination_therapy" class="step">
+        <h2>Combination Therapy</h2>
+        <p>Recommended Treatment: Combination therapy of oral tetracyclines, topical corticosteroids, lubrication.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('bandage_lens')">Treatment Failed</button>
+    </div>
+
+    <div id="bandage_lens" class="step">
+        <h2>Bandage Soft Contact Lens</h2>
+        <p>Recommended Treatment: Bandage soft contact lens.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('surgical_interventions')">Treatment Failed</button>
+    </div>
+
+    <div id="surgical_interventions" class="step">
+        <h2>Surgical Interventions</h2>
+        <p>Is the lesion on or off the visual axis?</p>
+        <button class="button" onclick="showStep('lesion_off_axis')">Lesion Off Visual Axis</button>
+        <button class="button" onclick="showStep('lesion_on_axis')">Lesion On Visual Axis</button>
+    </div>
+
+    <div id="lesion_off_axis" class="step">
+        <h2>Lesion Off Visual Axis</h2>
+        <p>Recommended Treatment: Anterior stromal micropuncture.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('prophylaxis')">Treatment Failed</button>
+    </div>
+
+    <div id="lesion_on_axis" class="step">
+        <h2>Lesion On Visual Axis</h2>
+        <p>Recommended Treatments: Superficial keratectomy or phototherapeutic keratectomy.</p>
+        <p>If treatment fails, click below:</p>
+        <button class="button" onclick="showStep('prophylaxis')">Treatment Failed</button>
+    </div>
+
+    <div id="prophylaxis" class="step">
+        <h2>Prophylaxis</h2>
+        <p>Continue combination therapy of oral tetracyclines, topical corticosteroids, and lubrication.</p>
+        <p>If symptoms recur, click below:</p>
+        <button class="button" onclick="showStep('combination_therapy')">Symptoms Recur</button>
+    </div>
+</div>
+
+</body>
+</html>
